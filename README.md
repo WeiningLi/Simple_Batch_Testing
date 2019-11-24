@@ -32,13 +32,15 @@ Actual:
 
 (contents of the actual program output)
 
+## Note that both .in and .args file for a test are optional, when there is no .in/.args file, the program run with no input/no args
+
 ## example also provided
 
-./produceOutput suite ./sample
+./produceOutput suite ./sampleCPP
 
 (produces .out files)
 
-./runSuite suite ./sample
+./runSuite suite ./sampleCPP
 
 (as we run on the same program, all output are the same, print nothing, you can try to modify .out file first then run ./runSuite to see the case that a test fail)
 
