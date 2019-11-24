@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ ${#} -ne 2 ]; then
+   echo "incorrect number of command line arguments" >&2
+   exit 1
+fi
+
+for file in $(cat $1); do
+    if [ -r "${file}.args" ]; then
+       if [ ! -r "${file}.in" ]; then
+          $2 $(cat ${file}.args) > ${file}.out
+       else
+          $2 $(cat ${file}.args) < ${file}.in > ${file}.out
+       fi
+    elif [ -r "${file}.in" ]; then
+       $2 < ${file}.in > ${file}.out
+    else
+       $2 > ${file}.out
+    fi
+done
+

@@ -1,0 +1,46 @@
+#!/bin/bash
+
+if [ ${#} -ne 2 ]; then
+   echo "incorrect number of command line arguments" >&2
+   exit 1
+fi
+
+for file in $(cat $1); do
+
+    if [ ! -r "${file}.out" ]; then
+       echo "missing or unreadable out file for ${file}" >&2
+       exit 1
+    fi
+
+    tmp="$(mktemp)"
+    if [ -r "${file}.args" ]; then
+       if [ ! -r "${file}.in" ]; then
+          $2 $(cat ${file}.args) > $tmp
+       else
+          $2 $(cat ${file}.args) < ${file}.in > $tmp
+       fi
+    elif [ -r "${file}.in" ]; then
+         $2 < ${file}.in > $tmp
+    else
+       $2 > $tmp
+    fi
+    diff $tmp  ${file}.out > /dev/null
+    if [ $? -ne 0 ]; then
+       echo "Test failed: ${file}"
+       echo "Args:"
+       if [ -r "${file}.args" ]; then
+          cat ${file}.args
+       fi
+       echo "Input:"
+       if [ -r "${file}.in" ]; then
+          cat ${file}.in
+       fi
+       echo "Expected:"
+       cat ${file}.out
+       echo "Actual:"
+       cat $tmp
+    fi
+
+    rm $tmp
+done
+
