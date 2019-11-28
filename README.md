@@ -8,7 +8,8 @@ The argument suite is a ﬁle containing a list of ﬁlename stems (test1.in, te
 
 Note that stems will not contain spaces.
 
-## The produceOutputs script runs program on each test in the test suite and, for each test, creates a ﬁle that contains the output produced for that test. 
+### produceOutputs:
+script runs program on each test in the test suite and, for each test, creates a ﬁle that contains the output produced for that test. 
 
 For example, suppose our suite.txt contains the following entries:
 
@@ -16,7 +17,8 @@ For example, suppose our suite.txt contains the following entries:
 
 Then our test suite consists of three tests. The ﬁrst one (test1) will use the ﬁle test1.in and test1.args.  The last one (reallyBigTest) will use the ﬁle reallyBigTest.in and reallyBigTest.args. 
 
-## For runSuite, we make .out files the expected outcome, then it compare the actual output when run the program with .in and .args with exprected given output (i.e. test1.outm reallyBigTest.out), if they are not the same, it prints:
+### runSuite: 
+we make .out files the expected outcome, then it compare the actual output when run the program with .in and .args with exprected given output (i.e. test1.outm reallyBigTest.out), if they are not the same, it prints:
 
 Test failed:
 
@@ -32,9 +34,9 @@ Actual:
 
 (contents of the actual program output)
 
-## Note that both .in and .args file for a test are optional, when there is no .in/.args file, the program run with no input/no args
+###### Note that both .in and .args file for a test are optional, when there is no .in/.args file, the program run with no input/no args
 
-## example also provided
+### Example
 
 ./produceOutput suite ./sampleCPP
 
